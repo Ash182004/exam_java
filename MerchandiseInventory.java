@@ -33,18 +33,23 @@ public class MerchandiseInventory {
 	        } catch (IOException e) {
 	            System.out.println("File reading error: " + e.getMessage());
 	        }
-		System.out.println("sorted in ascending order by item id");
-		for(merchandise m:list) {
-			System.out.println(m);
-		}
-		
+	        Collections.sort(list, new Comparator<merchandise>() {
+	            public int compare(merchandise m1, merchandise m2) {
+	                return m1.itemCode.compareTo(m2.itemCode);
+	            }
+	        });
+
+	        System.out.println("Sorted in ascending order by item id:");
+	        for (merchandise m : list) {
+	            System.out.println(m);
+	        }
 		Collections.sort(list,new Comparator<merchandise>() {
 			public int compare(merchandise m1, merchandise m2) {
-				return Double.compare(m1.unitPrice, m2.unitPrice);
+				return Double.compare(m2.unitPrice, m1.unitPrice);
 			}
 		});
 		
-		System.out.println("sorted in ascending order by item id");
+		System.out.println("sorted in descending order by item id");
 		for(merchandise m:list) {
 			System.out.println(m);
 		}

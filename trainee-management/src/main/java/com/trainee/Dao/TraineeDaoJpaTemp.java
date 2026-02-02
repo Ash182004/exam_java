@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.trainee.Dao.traineeDao;
 import com.trainee.Dto.Trainee;
 import com.trainee.Exception.TraineeDataAccessException;
+import com.trainee.Exception.TraineeNotFoundException;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -24,8 +25,8 @@ public class TraineeDaoJpaTemp implements traineeDao {
     public void addTrainee(Trainee trainee) {
         try {
             em.persist(trainee);
-        } catch (Exception e) {
-            throw new TraineeDataAccessException("Error saving trainee using JPA", e);
+        }  catch (Exception e) {
+            throw new TraineeDataAccessException("unable to add trainee" + trainee, e);
         }
     }
 
@@ -33,6 +34,9 @@ public class TraineeDaoJpaTemp implements traineeDao {
     public Trainee findById(int traineeId) {
         try {
             return em.find(Trainee.class, traineeId);
+        } catch (org.springframework.dao.EmptyResultDataAccessException e) {
+            
+            throw new TraineeNotFoundException("Trainee with id " + traineeId + " does not exist");
         } catch (Exception e) {
             throw new TraineeDataAccessException("Error finding trainee with id " + traineeId, e);
         }

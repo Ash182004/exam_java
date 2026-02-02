@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.trainee.Dto.Trainee;
 import com.trainee.Exception.TraineeDataAccessException;
+import com.trainee.Exception.TraineeNotFoundException;
 import com.trainee.Dao.traineeDao;
 
 @Repository
@@ -32,8 +33,8 @@ public class traineeDaoJdbcTemp implements traineeDao {
                 trainee.getBranch(),
                 trainee.getPercentage()
             );
-        } catch (Exception e) {
-            throw new TraineeDataAccessException("Error inserting trainee", e);
+        }  catch (Exception e) {
+            throw new TraineeDataAccessException("unable to add trainee" + trainee, e);
         }
     }
 
@@ -59,6 +60,9 @@ public class traineeDaoJdbcTemp implements traineeDao {
                 ),
                 traineeId
             );
+        }  catch (org.springframework.dao.EmptyResultDataAccessException e) {
+            
+            throw new TraineeNotFoundException("Trainee with id " + traineeId + " does not exist");
         } catch (Exception e) {
             throw new TraineeDataAccessException("Error finding trainee with id " + traineeId, e);
         }

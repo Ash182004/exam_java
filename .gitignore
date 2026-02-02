@@ -1,0 +1,22 @@
+﻿# Eclipse IDE files
+.metadata/
+*.log
+*.tmp
+*.bak
+
+# Gradle build folders
+/build/
+/.gradle/
+
+# Maven target folder
+/target/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# IntelliJ IDEA
+.idea/
